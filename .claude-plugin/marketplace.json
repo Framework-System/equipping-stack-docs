@@ -1,0 +1,20 @@
+{
+  "name": "equipping-stack-docs",
+  "description": "Marketplace do repositório equipping-stack-docs (instalação direta)",
+  "owner": {
+    "name": "Framework System",
+    "email": "rafaelbonaldi@frwk.com.br"
+  },
+  "plugins": [
+    {
+      "name": "equipping-stack-docs",
+      "description": "Generates project-local documentation skills with version-pinned docs via Context7 - covers new stacks and legacy codebases",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "Framework System",
+        "email": "rafaelbonaldi@frwk.com.br"
+      }
+    }
+  ]
+}
