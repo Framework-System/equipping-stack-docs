@@ -36,7 +36,6 @@ Ou direto deste repositório:
 ## Compatibilidade
 
 - Pensado para uso junto com o Superpowers oficial (o passo final invoca `superpowers:writing-plans` quando disponível), mas funciona sozinho — sem planning skill, ele reporta as skills geradas e devolve o controle.
-- **Não instale junto com o [frameworkpowers](https://github.com/Framework-System/frameworkpowers)**: aquele fork já embute esta skill; os dois juntos duplicam o gatilho.
 
 ## Créditos
 
