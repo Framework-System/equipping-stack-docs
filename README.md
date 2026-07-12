@@ -16,7 +16,7 @@ Falha do Context7 nunca bloqueia seu fluxo — degradação é sempre para varia
 
 ## Quando dispara
 
-- **Com design/spec aprovado** (funciona ao lado do [Superpowers](https://github.com/obra/superpowers): após o brainstorming, antes do writing-plans).
+- **Com design/spec aprovado**: após o refinamento do design, antes do plano de implementação — o plano já nasce referenciando as doc skills geradas.
 - **Autônomo em codebase existente**: ao começar trabalho substancial (feature, mudança multi-arquivo) num projeto cuja stack não tem doc skills locais. Hotfix trivial não interrompe — guarda anti-ruído explícita.
 
 ## Instalação
@@ -102,9 +102,5 @@ Em harnesses sem descoberta automática de skills, cole o conteúdo de [`skills/
 ## Compatibilidade e requisitos
 
 - **Context7**: acesso anônimo, sem cadastro e sem API key — decisão de design. O rate limit anônimo é baixo; a skill economiza chamadas (confirmação antes de gerar, reaproveitamento de skills existentes, backoff em 429).
-- **Superpowers**: pensado para conviver com o [Superpowers](https://github.com/obra/superpowers) oficial (o passo final invoca `superpowers:writing-plans` quando disponível), mas funciona sozinho — sem planning skill, ele reporta as skills geradas e devolve o controle.
+- **Fluxos de planejamento**: se o ambiente tiver uma skill de planos de implementação (ex.: writing-plans), o passo final a invoca informando quais doc skills existem; sem ela, o plugin reporta as skills geradas e devolve o controle. Funciona sozinho.
 - **Testado de ponta a ponta** contra a API real do Context7 nos cenários: stack nova com versão exata, legado com versão vizinha (Spring Boot 2.1), legado sem manifesto (inferência de Struts por `web.xml`/jar), e AngularJS 1.x (resolução do repo arquivado correto, sem vazamento de Angular moderno).
-
-## Créditos
-
-A estrutura de skills e o layout multi-harness seguem o padrão do [Superpowers](https://github.com/obra/superpowers) de Jesse Vincent (MIT).
