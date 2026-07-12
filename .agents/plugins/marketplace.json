@@ -1,0 +1,20 @@
+{
+  "name": "equipping-stack-docs",
+  "interface": {
+    "displayName": "Equipping Stack Docs"
+  },
+  "plugins": [
+    {
+      "name": "equipping-stack-docs",
+      "source": {
+        "source": "url",
+        "url": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

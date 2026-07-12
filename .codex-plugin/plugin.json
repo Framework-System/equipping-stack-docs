@@ -1,0 +1,34 @@
+{
+  "name": "equipping-stack-docs",
+  "version": "1.0.0",
+  "description": "Generates project-local documentation skills with version-pinned docs via Context7 - covers new stacks and legacy codebases",
+  "author": {
+    "name": "Framework System",
+    "email": "rafaelbonaldi@frwk.com.br"
+  },
+  "homepage": "https://github.com/Framework-System/equipping-stack-docs",
+  "repository": "https://github.com/Framework-System/equipping-stack-docs",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "context7",
+    "skills",
+    "legacy",
+    "stack"
+  ],
+  "skills": "./skills/",
+  "hooks": {},
+  "interface": {
+    "displayName": "Equipping Stack Docs",
+    "shortDescription": "Project-local doc skills pinned to the versions your project actually uses",
+    "longDescription": "Discovers your project's stack (from an approved design, manifests, or the code itself), then generates one documentation skill per technology with docs for the exact version in use - including legacy versions, with evidence-based delta annotations. Powered by the anonymous Context7 REST API.",
+    "developerName": "Framework System",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/Framework-System/equipping-stack-docs"
+  }
+}

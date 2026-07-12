@@ -1,0 +1,32 @@
+{
+  "name": "equipping-stack-docs",
+  "version": "1.0.0",
+  "description": "Generates project-local documentation skills with version-pinned docs via Context7 - covers new stacks and legacy codebases",
+  "author": {
+    "name": "Framework System",
+    "email": "rafaelbonaldi@frwk.com.br"
+  },
+  "homepage": "https://github.com/Framework-System/equipping-stack-docs",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "context7",
+    "skills",
+    "legacy",
+    "stack"
+  ],
+  "skills": "./skills/",
+  "skillInstructions": "Kimi Code tool mapping for the equipping-stack-docs skill:\n\n- When the skill says to confirm the technology list with your human partner, present the table and call Kimi Code's `AskUserQuestion` tool for the confirmation. Do not render the choices as plain assistant text unless `AskUserQuestion` is unavailable or the session is in auto permission mode.\n- When the skill says to dispatch one subagent per technology with the embedded prompt template, use Kimi Code's `Agent` tool with `subagent_type: \"coder\"`, paste the fully filled template into `prompt`, and provide a short `description`. Do not pass `general-purpose` as `subagent_type`.\n- Keep subagent dispatches parallel only when the skill says so; fall back to sequential dispatch on persistent rate limiting, as the skill instructs.\n- When the skill refers to invoking another skill (e.g. a writing-plans skill), use Kimi Code's native `Skill` tool if that skill is installed; otherwise report the generated doc skills and return control.\n- Use Kimi Code's `Read`, `Write`, `Edit`, `Bash`, `Grep`, and `Glob` tools by their actual exposed names for file checks and verification steps.",
+  "interface": {
+    "displayName": "Equipping Stack Docs",
+    "shortDescription": "Project-local doc skills pinned to the versions your project actually uses",
+    "longDescription": "Discovers your project's stack (from an approved design, manifests, or the code itself), then generates one documentation skill per technology with docs for the exact version in use - including legacy versions, with evidence-based delta annotations. Powered by the anonymous Context7 REST API.",
+    "developerName": "Framework System",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/Framework-System/equipping-stack-docs"
+  }
+}
