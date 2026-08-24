@@ -128,12 +128,19 @@ agy plugin install https://github.com/Framework-System/equipping-stack-docs
 
 ### OpenCode
 
-O OpenCode descobre skills por diretório. Clone o repositório e adicione o caminho no seu
-`opencode.json`:
+O OpenCode descobre skills por diretório. **Testado com o OpenCode 1.18.21.** Clone o repositório e
+declare o caminho no `opencode.json` do seu projeto — note que `skills` é um **objeto com `paths`**,
+não uma lista:
 
 ```json
-{ "skills": ["/caminho/para/equipping-stack-docs/skills"] }
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": { "paths": ["/caminho/para/equipping-stack-docs/skills"] }
+}
 ```
+
+Confira com `opencode debug skill`. O OpenCode não recarrega config a quente: reinicie depois de editar.
+
 
 ### pi
 

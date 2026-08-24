@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.3
+
+Correção de documentação, a partir de teste real com o **OpenCode 1.18.21** e o **pi 0.73.1**
+instalados.
+
+O README dizia para configurar o OpenCode com `"skills": ["/caminho"]` — formato copiado do README
+do superpowers, que está desatualizado. O OpenCode **rejeita a config e não inicia**:
+`Expected object | undefined, got [...]`. O correto é objeto com `paths`:
+`"skills": { "paths": ["/caminho"] }`. Confirmado no schema oficial e testado: com a forma certa,
+`opencode debug skill` lista a skill.
+
+Somado: verificação com `opencode debug skill`, e o aviso de que o OpenCode não recarrega config a
+quente.
+
+Sem mudança de comportamento.
+
 ## 1.0.2
 
 Correção de documentação, a partir de teste real com o **GitHub Copilot CLI 1.0.80** instalado.
