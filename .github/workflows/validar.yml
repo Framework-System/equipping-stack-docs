@@ -1,0 +1,12 @@
+name: Validar
+
+# Chama o validador central em Framework-System/frwk-plugins. As regras vivem lá, num lugar só —
+# não copie este arquivo com lógica dentro.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validar:
+    uses: Framework-System/frwk-plugins/.github/workflows/validar-plugin.yml@main

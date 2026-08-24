@@ -175,8 +175,8 @@ O padrão aberto [Agent Skills](https://agentskills.io) cobre `SKILL.md` + `scri
 `references/` + `assets/`. O Copilot CLI vai além e também importa `commands/` — mas **num espaço
 de nomes plano, sem o prefixo do plugin**.
 
-Fora do Claude Code, em vez de `/equipping-stack-docs:start`, descreva o que quer: o
-agente carrega a skill pela descrição dela e segue o mesmo procedimento.
+Este plugin não tem comandos de barra: ele é só a skill. Em qualquer agente, incluindo o Claude
+Code, o acionamento é o mesmo — descreva o que quer e o agente carrega a skill pela descrição dela.
 
 ## Como funciona
 
