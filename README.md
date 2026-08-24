@@ -153,19 +153,23 @@ Sem descoberta automática de skills, cole o conteúdo de
 
 ## O que funciona em cada agente
 
-O formato aberto Agent Skills cobre `SKILL.md` + `scripts/` + `references/` + `assets/`.
-**Comandos de barra, subagentes e hooks não fazem parte do padrão** — são específicos do Claude Code.
+Testado de verdade com o GitHub Copilot CLI 1.0.80 e com o validador de referência da spec
+(`skills-ref`), não inferido da documentação.
 
-| Recurso | Claude Code | Demais agentes |
-|---|---|---|
-| Skill (`SKILL.md`) | sim | sim |
-| Scripts e templates do pacote | sim | sim |
-| Comandos de barra (`—) | — | — |
-| Subagentes em paralelo | — | — |
-| Hooks de ciclo de vida | — | — |
+| Recurso | Claude Code | Copilot CLI | Demais agentes |
+|---|---|---|---|
+| Skill (`SKILL.md`) | sim | sim | sim |
+| Scripts, templates e referências | sim | sim | sim |
+| Comandos (`commands/`) | sim, como `/equipping-stack-docs:<cmd>` | sim, viram skills soltas | não |
+| Subagentes em paralelo | — | — | — |
+| Hooks de ciclo de vida | — | — | — |
 
-Fora do Claude Code, em vez de `a skill equipping-stack-docs`, descreva o que quer: o agente carrega a skill pela
-descrição dela e segue o mesmo procedimento.
+O padrão aberto [Agent Skills](https://agentskills.io) cobre `SKILL.md` + `scripts/` +
+`references/` + `assets/`. O Copilot CLI vai além e também importa `commands/` — mas **num espaço
+de nomes plano, sem o prefixo do plugin**.
+
+Fora do Claude Code, em vez de `/equipping-stack-docs:start`, descreva o que quer: o
+agente carrega a skill pela descrição dela e segue o mesmo procedimento.
 
 ## Como funciona
 

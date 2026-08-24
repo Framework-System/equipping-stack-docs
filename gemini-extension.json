@@ -1,6 +1,6 @@
 {
   "name": "equipping-stack-docs",
   "description": "Generates project-local documentation skills with version-pinned docs via Context7 - covers new stacks and legacy codebases",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "contextFileName": "GEMINI.md"
 }
