@@ -4,6 +4,169 @@ Plugin/skill para agentes de código que gera, na hora certa, **skills de docume
 
 O conhecimento de treino do modelo sobre frameworks desatualiza rápido — e falha mais forte em **sistemas legados**, onde o modelo escreve os idiomas de hoje contra as APIs de ontem. Este plugin resolve os dois lados: stacks novas (docs atuais da versão exata) e legados (docs da versão antiga, com anotações de delta baseadas em evidência).
 
+## Sumário
+
+- [Instalação](#instalacao)
+- [O que funciona em cada agente](#o-que-funciona-em-cada-agente)
+- [Como funciona](#como-funciona)
+- [Quando dispara](#quando-dispara)
+- [Uso como skill avulsa (qualquer agente)](#uso-como-skill-avulsa-qualquer-agente)
+- [Compatibilidade e requisitos](#compatibilidade-e-requisitos)
+
+## Instalação
+
+A instalação muda conforme o agente. Se você usa mais de um, instale em cada um separadamente.
+
+> **Repositórios privados.** Todos os repos da Framework System são privados. Qualquer comando abaixo
+> que busque pela URL exige que você já esteja autenticado no GitHub (`gh auth login`, credential
+> helper ou chave SSH no `ssh-agent`). Sem isso o download falha com erro de autenticação, não de
+> "não encontrado".
+
+### Claude Code
+
+Entrega completa: skill, comandos de barra e templates.
+
+- Registre o marketplace:
+
+  ```bash
+  /plugin marketplace add Framework-System/frwk-plugins
+  ```
+
+- Instale o plugin:
+
+  ```bash
+  /plugin install equipping-stack-docs@frwk-plugins
+  ```
+
+### GitHub Copilot CLI
+
+O Copilot CLI lê o mesmo `marketplace.json` do Claude Code.
+
+- Registre o marketplace:
+
+  ```bash
+  copilot plugin marketplace add Framework-System/frwk-plugins
+  ```
+
+- Instale o plugin:
+
+  ```bash
+  copilot plugin install equipping-stack-docs@frwk-plugins
+  ```
+
+### GitHub Copilot (VS Code, JetBrains, cloud agent, code review)
+
+O Copilot descobre skills por diretório. Copie a skill para o repositório onde vai trabalhar:
+
+```bash
+mkdir -p .agents/skills
+cp -R /caminho/para/equipping-stack-docs/skills/equipping-stack-docs .agents/skills/
+```
+
+Ou para o diretório pessoal, valendo em todos os projetos: `~/.copilot/skills/`.
+
+### Codex (app e CLI)
+
+O repositório traz `.codex-plugin/plugin.json` com a skill declarada. O plugin não está publicado no
+marketplace oficial do Codex — instale a partir do repositório clonado, ou copie a skill:
+
+```bash
+mkdir -p ~/.agents/skills
+cp -R /caminho/para/equipping-stack-docs/skills/equipping-stack-docs ~/.agents/skills/
+```
+
+No Codex a skill é acionada por `$equipping-stack-docs` ou pela descrição dela.
+
+### Cursor
+
+O repositório traz `.cursor-plugin/plugin.json`. Instale a partir deste repositório, ou copie
+`skills/equipping-stack-docs/` para o diretório de skills do Cursor.
+
+### Factory Droid
+
+- Registre o marketplace:
+
+  ```bash
+  droid plugin marketplace add https://github.com/Framework-System/frwk-plugins
+  ```
+
+- Instale o plugin:
+
+  ```bash
+  droid plugin install equipping-stack-docs@frwk-plugins
+  ```
+
+### Gemini CLI
+
+- Instale a extensão:
+
+  ```bash
+  gemini extensions install https://github.com/Framework-System/equipping-stack-docs
+  ```
+
+- Atualize depois:
+
+  ```bash
+  gemini extensions update equipping-stack-docs
+  ```
+
+A extensão injeta o `GEMINI.md`, que inclui o conteúdo da skill no contexto da sessão.
+
+### Kimi Code
+
+O manifesto `.kimi-plugin/plugin.json` declara a skill.
+
+```text
+/plugins install https://github.com/Framework-System/equipping-stack-docs
+```
+
+### Antigravity
+
+```bash
+agy plugin install https://github.com/Framework-System/equipping-stack-docs
+```
+
+### OpenCode
+
+O OpenCode descobre skills por diretório. Clone o repositório e adicione o caminho no seu
+`opencode.json`:
+
+```json
+{ "skills": ["/caminho/para/equipping-stack-docs/skills"] }
+```
+
+### pi
+
+```bash
+pi install git:github.com/Framework-System/equipping-stack-docs
+```
+
+### Qualquer outro agente com suporte a Agent Skills
+
+A skill segue o formato aberto [Agent Skills](https://agentskills.io). Copie
+`skills/equipping-stack-docs/` para o diretório de skills do seu agente — os caminhos mais comuns são
+`.agents/skills/` (no repositório) e `~/.agents/skills/` (pessoal).
+
+Sem descoberta automática de skills, cole o conteúdo de
+[`skills/equipping-stack-docs/SKILL.md`](skills/equipping-stack-docs/SKILL.md) no contexto do agente
+(`AGENTS.md`, arquivo de instruções do projeto, system prompt) e peça: *"siga a skill equipping-stack-docs"*.
+
+## O que funciona em cada agente
+
+O formato aberto Agent Skills cobre `SKILL.md` + `scripts/` + `references/` + `assets/`.
+**Comandos de barra, subagentes e hooks não fazem parte do padrão** — são específicos do Claude Code.
+
+| Recurso | Claude Code | Demais agentes |
+|---|---|---|
+| Skill (`SKILL.md`) | sim | sim |
+| Scripts e templates do pacote | sim | sim |
+| Comandos de barra (`—) | — | — |
+| Subagentes em paralelo | — | — |
+| Hooks de ciclo de vida | — | — |
+
+Fora do Claude Code, em vez de `a skill equipping-stack-docs`, descreva o que quer: o agente carrega a skill pela
+descrição dela e segue o mesmo procedimento.
+
 ## Como funciona
 
 1. **Descobre a stack** em cascata: design aprovado → manifestos (`package.json`, `pom.xml`, `go.mod`...) → inferência do código (imports, jars, `web.xml`, script tags — versão marcada como aproximada).
@@ -19,71 +182,6 @@ Falha do Context7 nunca bloqueia seu fluxo — degradação é sempre para varia
 - **Com design/spec aprovado**: após o refinamento do design, antes do plano de implementação — o plano já nasce referenciando as doc skills geradas.
 - **Autônomo em codebase existente**: ao começar trabalho substancial (feature, mudança multi-arquivo) num projeto cuja stack não tem doc skills locais. Hotfix trivial não interrompe — guarda anti-ruído explícita.
 
-## Instalação
-
-A instalação varia conforme o harness. O coração do plugin é um único diretório de skill (`skills/equipping-stack-docs/`) — qualquer ambiente que leia o formato `SKILL.md` consegue usá-lo (veja [Uso como skill avulsa](#uso-como-skill-avulsa-qualquer-agente)).
-
-### Claude Code
-
-Via marketplace da Framework System (recomendado):
-
-```
-/plugin marketplace add Framework-System/frwk-plugins
-/plugin install equipping-stack-docs@frwk-plugins
-```
-
-Ou direto deste repositório:
-
-```
-/plugin marketplace add Framework-System/equipping-stack-docs
-/plugin install equipping-stack-docs@equipping-stack-docs
-```
-
-### Codex (app e CLI)
-
-O repositório traz o manifesto `.codex-plugin/plugin.json` com a skill declarada. O plugin não está publicado no marketplace do Codex — instale a partir deste repositório clonado, apontando o Codex para o diretório do plugin, ou use o [uso como skill avulsa](#uso-como-skill-avulsa-qualquer-agente) copiando a skill para o diretório de skills do Codex.
-
-### Cursor
-
-O repositório traz `.cursor-plugin/plugin.json` com a skill declarada. Instale a partir deste repositório (não publicado no marketplace do Cursor) ou copie a skill para o diretório de skills do seu ambiente.
-
-### Kimi Code
-
-```
-/plugins install https://github.com/Framework-System/equipping-stack-docs
-```
-
-O manifesto `.kimi-plugin/plugin.json` inclui o mapeamento de ferramentas do Kimi (AskUserQuestion para a confirmação da stack, Agent para os subagentes geradores).
-
-### Pi
-
-```
-pi install git:github.com/Framework-System/equipping-stack-docs
-```
-
-Para desenvolvimento local: `pi -e /caminho/para/equipping-stack-docs`. O Pi tem skills nativas; o `package.json` declara `pi.skills`.
-
-### Gemini CLI
-
-```
-gemini extensions install https://github.com/Framework-System/equipping-stack-docs
-```
-
-A extensão injeta o `GEMINI.md`, que inclui o conteúdo completo da skill no contexto da sessão.
-
-### Antigravity
-
-```
-agy plugin install https://github.com/Framework-System/equipping-stack-docs
-```
-
-### OpenCode
-
-O OpenCode descobre skills por diretório. Clone o repositório e adicione o caminho no seu `opencode.json`:
-
-```json
-{ "skills": { "paths": ["/caminho/para/equipping-stack-docs/skills"] } }
-```
 
 ## Uso como skill avulsa (qualquer agente)
 
