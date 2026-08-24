@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.5
+
+Seção **Cursor** do README atualizada com o resultado do teste real (Cursor Agent 2026.08.11).
+
+Dois detalhes que só apareceram testando: o Cursor **exige a URL completa**
+(`github.com/Framework-System/frwk-plugins`) e recusa o atalho `owner/repo` com `Invalid URL
+format`; e o registro do marketplace vale para a **conta**, não para o projeto, já clonando os
+repositórios no ato. A ativação de cada plugin é feita no app — o CLI só tem `plugin marketplace`.
+
+Com isso o Cursor sai da lista de agentes não testados. Sem mudança de comportamento.
+
 ## 1.0.4 — README: comando inexistente
 
 O README citava `/equipping-stack-docs:start`, comando que este plugin não tem — ele é só a skill,

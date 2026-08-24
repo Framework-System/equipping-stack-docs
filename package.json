@@ -1,6 +1,6 @@
 {
   "name": "equipping-stack-docs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Generates project-local documentation skills with version-pinned docs via Context7 - covers new stacks and legacy codebases",
   "type": "module",
   "keywords": [

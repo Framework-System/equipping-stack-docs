@@ -79,8 +79,17 @@ No Codex a skill é acionada por `$equipping-stack-docs` ou pela descrição del
 
 ### Cursor
 
-O repositório traz `.cursor-plugin/plugin.json`. Instale a partir deste repositório, ou copie
-`skills/equipping-stack-docs/` para o diretório de skills do Cursor.
+**Testado com o Cursor Agent 2026.08.11.** O Cursor lê o mesmo `marketplace.json` do Claude Code,
+mas exige a URL completa — o atalho `owner/repo` é recusado com `Invalid URL format`.
+
+```bash
+cursor-agent login
+cursor-agent plugin marketplace add github.com/Framework-System/frwk-plugins
+```
+
+O registro vale para a conta e o Cursor já clona os repositórios no ato. A ativação de cada plugin
+é feita no app: o CLI só tem `plugin marketplace`.
+
 
 ### Factory Droid
 
