@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.4 — README: comando inexistente
+
+O README citava `/equipping-stack-docs:start`, comando que este plugin não tem — ele é só a skill,
+sem `commands/`. A referência foi criada pelo gerador de README que eu rodei nesta mesma leva, com
+um fallback que inventava um comando quando o plugin não tinha nenhum.
+
+Achado pelo validador novo (`scripts/validar-plugin.py`, regra `readme-comandos`) na primeira
+execução dele.
+
 ## 1.0.3
 
 Correção de documentação, a partir de teste real com o **OpenCode 1.18.21** e o **pi 0.73.1**
